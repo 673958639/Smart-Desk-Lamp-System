@@ -1,0 +1,36 @@
+#include <dht.h>
+#define dataPin 8 // Defines pin number to which the sensor is connected
+dht DHT; // Creats a DHT object
+#define ADpin A1
+int ADBuffer=0;
+void setup()
+{
+int ADBuffer=0;
+  Serial.begin(9600);
+  
+}
+void loop()
+{
+  while(Serial.available())
+    {
+      char c=Serial.read();
+      if(c=='A')
+        {
+            int readData = DHT.read11(dataPin); // Reads the data from the sensor
+  float t = DHT.temperature; // Gets the values of the temperature
+  float h = DHT.humidity; // Gets the values of the humidity
+            Serial.print("Temperature = ");
+          Serial.print(t);
+  Serial.print(" *C ");
+  Serial.print("    Humidity = ");
+  Serial.print(h);
+  Serial.println(" % ");
+  
+        }
+     if(c=='C'){
+      ADBuffer=analogRead(ADpin);
+  Serial.print("AD=");
+  Serial.println(ADBuffer);
+      }   
+    }
+}
